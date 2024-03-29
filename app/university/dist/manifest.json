@@ -1,0 +1,241 @@
+{
+    "_version": "1.59.0",
+    "sap.app": {
+        "id": "university",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.12.5",
+            "toolsId": "40ba505d-d9cb-48f0-b3f2-aba87937719e"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "odata/v4/my/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "university-university": {
+                    "semanticObject": "university",
+                    "action": "university",
+                    "title": "{{flpTitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.121.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "university.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "universityList",
+                    "target": "universityList"
+                },
+                {
+                    "pattern": "university({key}):?query:",
+                    "name": "universityObjectPage",
+                    "target": "universityObjectPage"
+                },
+                {
+                    "pattern": "university({key})/uni_to_college({key2}):?query:",
+                    "name": "university_uni_to_collegeObjectPage",
+                    "target": "university_uni_to_collegeObjectPage"
+                },
+                {
+                    "pattern": "university({key})/uni_to_college({key2})/college_to_branch({key3}):?query:",
+                    "name": "university_uni_to_college_college_to_branchObjectPage",
+                    "target": "university_uni_to_college_college_to_branchObjectPage"
+                },
+                {
+                    "pattern": "university({key})/uni_to_college({key2})/college_to_branch({key3})/branch_to_student({key4}):?query:",
+                    "name": "university_uni_to_college_college_to_branch_branch_to_studentObjectPage",
+                    "target": "university_uni_to_college_college_to_branch_branch_to_studentObjectPage"
+                },
+                {
+                    "pattern": "university({key})/uni_to_college({key2})/college_to_branch({key3})/branch_to_student({key4})/student_to_marks({key5}):?query:",
+                    "name": "university_uni_to_college_college_to_branch_branch_to_student_student_to_marksObjectPage",
+                    "target": "university_uni_to_college_college_to_branch_branch_to_student_student_to_marksObjectPage"
+                }
+            ],
+            "targets": {
+                "universityList": {
+                    "type": "Component",
+                    "id": "universityList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/university",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "university": {
+                                    "detail": {
+                                        "route": "universityObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "universityObjectPage": {
+                    "type": "Component",
+                    "id": "universityObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "contextPath": "/university",
+                            "navigation": {
+                                "uni_to_college": {
+                                    "detail": {
+                                        "route": "university_uni_to_collegeObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "university_uni_to_collegeObjectPage": {
+                    "type": "Component",
+                    "id": "university_uni_to_collegeObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/university/uni_to_college",
+                            "navigation": {
+                                "college_to_branch": {
+                                    "detail": {
+                                        "route": "university_uni_to_college_college_to_branchObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "university_uni_to_college_college_to_branchObjectPage": {
+                    "type": "Component",
+                    "id": "university_uni_to_college_college_to_branchObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/university/uni_to_college/college_to_branch",
+                            "navigation": {
+                                "branch_to_student": {
+                                    "detail": {
+                                        "route": "university_uni_to_college_college_to_branch_branch_to_studentObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "university_uni_to_college_college_to_branch_branch_to_studentObjectPage": {
+                    "type": "Component",
+                    "id": "university_uni_to_college_college_to_branch_branch_to_studentObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/university/uni_to_college/college_to_branch/branch_to_student",
+                            "navigation": {
+                                "student_to_marks": {
+                                    "detail": {
+                                        "route": "university_uni_to_college_college_to_branch_branch_to_student_student_to_marksObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "university_uni_to_college_college_to_branch_branch_to_student_student_to_marksObjectPage": {
+                    "type": "Component",
+                    "id": "university_uni_to_college_college_to_branch_branch_to_student_student_to_marksObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/university/uni_to_college/college_to_branch/branch_to_student/student_to_marks",
+                            "navigation": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "Uniersity"
+    }
+}
